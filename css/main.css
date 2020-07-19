@@ -133,7 +133,27 @@ ul li {
     max-width: 1300px;
   }
 }
-
+.button {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  border: 2px solid white;
+  padding: 10px;
+  transition: all .3s ease;
+  border-radius: 20px;
+}
+.button:hover{
+  border-color: yellowgreen;
+  background-color: yellowgreen;
+}
+.float-right{
+  float: right;
+  margin-right: 20px;
+}
+.float-left{
+  float:left;
+  margin-left: 20px;
+}
 h2 {
   font-family: 'Oswald', sans-serif;
   font-size: 2.4em;
@@ -237,7 +257,13 @@ h1.nombre-sitio {
   font-family: 'PT Sans', sans-serif;
   color: white;
 }
+h1.nombre-sitio span:first-child{
+  color: rgb(45, 167, 72);
 
+}
+h1.nombre-sitio span:last-child{
+  color: red;
+}
 
 @media only screen and (min-width: 768px) {
   h1.nombre-sitio {
@@ -258,10 +284,11 @@ p.slogan span {
   font-weight: bold;
 }
 p.slogan span:first-child{
-  color: red;
+  color: rgb(45, 167, 72);
+
 }
 p.slogan span:last-child{
-  color: rgb(45, 167, 72);
+  color: red;
 }
 
 /**BARRA NAVEGACION**/
@@ -351,7 +378,7 @@ ul.novedades li{
 ul.novedades li div.box {
   position: relative;
   border: 1px solid black;
-  background-color: burlywood;
+  background-color: rgba(6, 6, 6, 0.3);
   border-radius: 20px;
   padding: 20px 0;
   transition: all .3s ease;
@@ -363,18 +390,66 @@ ul.novedades li div.box:hover{
  box-shadow: 0px 0px 50x #666;
 }
 ul.novedades li h3.titulo {
+  color: white;
   text-align: center;
   font-family: 'PT Sans', sans-serif;
-  font-size: 2em;
+  font-size: 3em;
 }
 
 ul.novedades li p.descripcion {
+  color: white;
   padding: 0 20px 0 20px;
   text-align: left;
-  font-size: 1.2em;
+  font-size: 1.6em;
   font-family: 'PT Sans', sans-serif;
 }
-
+/** SITE FOOTER **/
+footer.site-footer{
+  background-color: rgb(45, 167, 72);
+  padding-top: 40px;
+}
+footer .contenedor > div{
+  color: #ffffff;
+  padding: 0 20px;
+  font-size: 12px;
+  text-align: left;
+}
+@media only screen and (min-width: 768px){
+  footer .contenedor > div{
+    width: 33.3%;
+    float: left;
+  }
+}
+footer h3{
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Oswald',sans-serif;
+  margin-bottom: 20px;
+}
+footer h3 span{
+  color: rgb(185, 10, 10);
+}
+footer div.menu{
+float: left;
+}
+footer nav.redes-sociales{
+  text-align: left;
+}
+footer div.footer-informacion p{
+  font-size: 1.2em;
+}
+footer div.footer-informacion p i{
+font-size: 2em;
+color: white;
+margin-right: 10px;
+}
+p.copyright{
+  background-color: rgb(45, 147, 72);
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  margin: 20px 0 0 0;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */
