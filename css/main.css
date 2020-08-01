@@ -177,6 +177,24 @@ h3 {
   font-family: 'PT Sans', sans-serif;
   margin: 0px;
 }
+h4{
+  font-size: 1.6em;
+  color: black;
+  font-family: 'PT Sans', sans-serif;
+  margin: 0px;
+}
+h5{
+  font-size: 1.4em;
+  color: black;
+  font-family: 'PT Sans', sans-serif;
+  margin: 0px;
+}
+h6{
+  font-size: 1.2em;
+  color: black;
+  font-family: 'PT Sans', sans-serif;
+  margin: 0px;
+}
 /**PARALLAX**/
 .parallax::before{
   width: 100%;
@@ -295,20 +313,30 @@ p.slogan span:last-child{
 div.barra {
   background-color: rgb(45, 167, 72);
   padding: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+@media only screen and (min-width:992px) {
+  div.barra div.contenedor{
+    display: flex;
+    justify-content: center;
+  }
 }
 
 div.logo {
-  width: 80%;
-  float: left;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 div.logo img {
   width: 100%;
 }
 
-@media only screen and (min-width:768px) {
+@media only screen and (min-width:992px) {
   div.logo {
     width: 33%;
+    float: left;
+    margin-bottom: 0px;
   }
 }
 
@@ -338,13 +366,13 @@ nav.navegacion-principal a.remark:hover {
   color: white;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 992px) {
   nav.navegacion-principal {
     width: 67%;
-    float: right;
     text-align: right;
-    display: block;
-    line-height: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   nav.navegacion-principal a {
@@ -449,6 +477,73 @@ p.copyright{
   padding: 10px 0;
   text-align: center;
   margin: 20px 0 0 0;
+}
+
+/* PRODUCTOS.PHP */
+div.barraproductos{
+  background-color: rgb(45, 147, 72);
+}
+div.barraproductos div.contenedor{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+nav.navcategorias{
+  display:block;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 0 ;
+}
+nav.navcategorias a{
+  margin: 10px 20px 10px 20px;
+  display: block;
+  text-decoration: none;
+  color: white;
+  font-size: 2em;
+  padding: 0 10px;
+  border: 2px solid rgb(175, 1, 1);
+}
+@media only screen and (min-width: 768px){
+  nav.navcategorias{
+    display:flex;
+    justify-content: center;
+  }
+  nav.navcategorias a{
+    display: inline-block;
+    margin: 0px 20px;
+  }
+
+}
+nav.navcategorias a:hover{
+  background-color: rgb(175, 1, 1);
+}
+ul.listaProductos{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  justify-content: center;
+  padding: 0;
+}
+@media only screen and (min-width: 768px){
+  ul.listaProductos{
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 10px;
+  }
+}
+@media only screen and (min-width: 992px){
+  ul.listaProductos{
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 10px;
+  }
+}
+li.producto{
+margin: 0 auto;
+}
+div.contenedorProducto{
+width: 300px;
+height: 300px;
+background-color: grey;
+text-align: center;
 }
 /* ==========================================================================
    Helper classes
