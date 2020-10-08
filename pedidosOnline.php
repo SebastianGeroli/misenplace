@@ -1,8 +1,8 @@
 <?php 
-include 'head.php';
+include 'includes/header.php';
 include 'navBar.php';
 ?>
 
 <?php 
-include 'footer.php'
+include 'includes/footer.php'
 ?>

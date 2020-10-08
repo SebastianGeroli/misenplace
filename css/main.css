@@ -88,11 +88,16 @@ textarea {
    ========================================================================== */
 /** GLOBALES **/
 :root{
-  --main-green: #2E8F4E;
+ --main-green: #2E8F4E;
   --light-green: #76DB98;
   --dark-green: #08421B;
   --main-red: #8F2925;
   --dark-red: #420402;
+ /* --main-green: #4BAD07;
+  --light-green: #6676D9;
+  --dark-green: #30610E;
+  --main-red: #AD4018;
+  --dark-red: #612009;*/
 }
 html {
   box-sizing: border-box;
@@ -149,8 +154,8 @@ ul li {
   border-radius: 20px;
 }
 .button:hover{
-  border-color: yellowgreen;
-  background-color: yellowgreen;
+  border-color: var(--light-green);
+  background-color: var(--light-green);
 }
 .float-right{
   float: right;
@@ -576,6 +581,7 @@ form div.formContainer{
 }
 form div.formContainer input{
   width: 90%;
+  border: none;
   border-radius: 8px;
 }
 form.contacto textarea{
@@ -600,6 +606,39 @@ form.contacto .submit-btn:hover{
   form.contacto .submit-btn{
     float: right;
     width: 30%;
+  }
+}
+/* QUIENES-SOMOS.PHP */
+.left-column{
+grid-area: left-column;
+background-color: green;
+}
+.left-column img {
+  width: 100%;
+  height: 100%;
+}
+.mid-column{
+grid-area: mid-column;
+background-color: grey;
+padding: 0px 10px;
+}
+.right-column{
+grid-area: right-column;
+background-color: red;
+}
+.right-column img{
+  width: 100%;
+  height: 100%;
+}
+#wrapper{
+  display: block;
+  
+}
+@media only screen and (min-width: 992px){
+  #wrapper{
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    grid-template-areas: "left-column mid-column right-column";
   }
 }
 /* ==========================================================================
