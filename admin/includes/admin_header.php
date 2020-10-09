@@ -1,3 +1,4 @@
+<?php include "includes//class-autoload.inc.php";?>
 <?php include "includes/functions.php";?>
 <?php ob_start(); ?>
 <?php session_start(); ?>

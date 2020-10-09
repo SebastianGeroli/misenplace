@@ -1,9 +1,4 @@
 </div>
-<?php
-if($conn){
-    mysqli_close($conn);
-}
-?>
 <!-- /#wrapper -->
 <!-- jQuery -->
 <script src="js/jquery.js"></script>

@@ -22,6 +22,8 @@ class Users extends Dbh
         $sql = "SELECT * FROM users";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
     }
     //GET USERS WITH FILTER 1
     /**

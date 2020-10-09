@@ -16,17 +16,17 @@
                     $source = '';
                 }
                 switch($source){
-                    case 'add_post':
-                        echo "<h1 class='page-header'>Add Post</h1>";
+                    case 'add_product':
+                        echo "<h1 class='page-header'>Añadir Producto</h1>";
                         include "includes/add_post.php";
                         break;
-                    case 'edit_post':
-                         echo "<h1 class='page-header'>Edit Post</h1>";
+                    case 'edit_product':
+                         echo "<h1 class='page-header'>Editar Producto</h1>";
                         include "includes/edit_post.php";
                         break;
                     default:
-                          echo "<h1 class='page-header'>View All Posts</h1>";
-                        include "includes/view_all_posts.php";
+                          echo "<h1 class='page-header'>Todos los Productos</h1>";
+                        include "includes/view_all_products.php";
                         break;
                 }
                 ?>
