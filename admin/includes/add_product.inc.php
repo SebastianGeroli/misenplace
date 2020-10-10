@@ -28,56 +28,40 @@ if(isset($_POST['create_post'])){
 
 ?>
 
-
-
-
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="title">Post Title</label>
+        <label for="title">Nombre(Titulo)</label>
         <input type="text" class="form-control" name="title">
     </div>
     <div class="form-group">
-        <label for="post_category">Post Category ID</label>
+        <label for="post_category">Categoria del Producto</label>
         <select name="post_category" id="post_category">
             <?php 
-            $query = "SELECT * FROM categories";
-            $select_categories = mysqli_query($connection,$query);
-            confirmQuery($select_categories);
-            while($row = mysqli_fetch_assoc($select_categories)){
+            //Get categories
+            $categoryView = new CategoryView();
+            $result = $categoryView->GetAll();
+            foreach($result as $row){
                 $cat_id = $row['cat_id'];
-                $cat_title = $row['cat_title'];
-                echo "<option value='{$cat_id}'>{$cat_title}</option>";
+                $cat_name = $row['cat_name'];
+                echo "<option value='{$cat_id}'>{$cat_name}</option>";
             }
             ?>
         </select>
     </div>
     <div class="form-group">
-        <label for="author">Post Author</label>
+        <label for="author">Precio</label>
         <input type="text" class="form-control" name="author">
     </div>
     <div class="form-group">
-        <label for="post_status">Post Status</label>
-        <select name="post_status" id="">
-            <option value="published">Published</option>
-            <option value="draft">Draft</option>
-        </select>
+        <label for="author">Descripcion</label>
+        <textarea  class="form-control" name="post_content" id="editor" cols="30" rows="10"></textarea>
     </div>
     <div class="form-group">
-        <label for="image">Post Image</label>
+        <label for="image">Imagen</label>
         <input type="file" name="image">
     </div>
     <div class="form-group">
-        <label for="post_tags">Post Tags</label>
-        <input type="text" class="form-control" name="post_tags">
-    </div>
-    <div class="form-group">
-        <label for="post_content">Post Content</label>
-
-        <textarea  class="form-control" name="post_content" id="editor" cols="30" rows="10"></textarea>
-    </div>
-
-    <div class="form-group">
-        <input class="btn btn-primary" type="submit" name="create_post" value="Publish Post">
+        <input class="btn btn-primary" type="submit" name="create_post" value="Agregar Producto">
     </div>
 
 </form>

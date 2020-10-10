@@ -18,7 +18,7 @@
                 switch($source){
                     case 'add_product':
                         echo "<h1 class='page-header'>Añadir Producto</h1>";
-                        include "includes/add_post.php";
+                        include "includes/add_product.inc.php";
                         break;
                     case 'edit_product':
                          echo "<h1 class='page-header'>Editar Producto</h1>";
