@@ -16,6 +16,36 @@ class Product extends Dbh
         $result = $stmt->fetch();
         return $result;
     }
+    protected function getColumnFromProductById($columnName, $prod_ID)
+    {
+        $column = "";
+        //Switch for security
+        switch ($columnName) {
+            case 'prod_name';
+                $column = 'prod_name';
+                break;
+                case 'prod_cat';
+                $column = 'prod_cat';
+                break;
+                case 'prod_price';
+                $column = 'prod_price';
+                break;
+                case 'prod_description';
+                $column = 'prod_description';
+                break;
+                case 'prod_image';
+                $column = 'prod_image';
+                break;
+                default:
+                $column = 'prod_name';
+            break;
+        }
+        $sql = "SELECT $column FROM products WHERE prod_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$prod_ID]);
+        $result = $stmt->fetch();
+        return $result;
+    }
     //GET ALL PRODUCTS
     protected function GetAllproducts()
     {
@@ -50,11 +80,13 @@ class Product extends Dbh
      * @param date $prod_creation optional date of creation for this product
      * @param date $prod_last_mod optional last modification applied to this product    
      */
-    protected function InsertNewProduct($prod_name, $prod_cat, $prod_price, $prod_descr,$prod_image,$prod_creation = "now()",$prod_last_mod ="now()")
+    protected function InsertNewProduct($prod_name, $prod_cat, $prod_price, $prod_descr, $prod_image)
     {
+        $prod_creation = date("y-m-d");
+        $prod_last_mod = date("y-m-d");
         $sql = "INSERT INTO products(prod_name,prod_cat,prod_price,prod_description,prod_image,prod_creation,prod_last_modification) VALUES(?,?,?,?,?,?,?)";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$prod_name,$prod_cat,$prod_price,$prod_descr,$prod_image,$prod_creation,$prod_last_mod]);
+        $stmt->execute([$prod_name, $prod_cat, $prod_price, $prod_descr, $prod_image, $prod_creation, $prod_last_mod]);
     }
 
     //UPDATE PRODUCT
@@ -69,9 +101,10 @@ class Product extends Dbh
      * @param integer $prod_image path image
      * @param integer $productID id of this product
      */
-    protected function UpdateUser($prod_name, $prod_cat, $prod_price, $prod_descr, $prod_image, $productID)
+    protected function UpdateProduct($prod_name, $prod_cat, $prod_price, $prod_descr, $prod_image, $productID)
     {
-            $sql = "UPDATE products SET 
+        $last_mod = date("y-m-d");
+        $sql = "UPDATE products SET 
             prod_name = :prod_name, 
             prod_cat = :prod_cat, 
             prod_price = :prod_price, 
@@ -79,13 +112,22 @@ class Product extends Dbh
             prod_image = :prod_image,
             prod_last_modification = :last_mod
             WHERE prod_id = :id";
-            $stmt = $this->connect()->prepare($sql);
-            $stmt->execute(['prod_name' => $prod_name, 
-            'prod_cat' => $prod_cat, 
-            'prod_price' => $prod_price, 
-            'prod_descr' => $prod_descr, 
-            'prod_image' => $prod_image, 
-            'last_mod' => "now()", 
-            'id' => $productID]);
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([
+            'prod_name' => $prod_name,
+            'prod_cat' => $prod_cat,
+            'prod_price' => $prod_price,
+            'prod_descr' => $prod_descr,
+            'prod_image' => $prod_image,
+            'last_mod' => $last_mod,
+            'id' => $productID
+        ]);
+    }
+
+    protected function DeleteProduct($prod_ID)
+    {
+        $sql = "DELETE FROM products WHERE prod_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$prod_ID]);
     }
 }

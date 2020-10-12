@@ -52,6 +52,13 @@ if(isset($_POST['checkBoxArray'])){
     
 }
 
+//DELETE SINGLE PRODUCT
+if(isset($_GET['delete'])){
+    $prod_ID = $_GET['delete'];
+    $productController = new ProductController();
+    $productController->DeleteProductFromDB($prod_ID);
+}
+
 
 ?>
 
@@ -90,6 +97,8 @@ if(isset($_POST['checkBoxArray'])){
 <?php
 $productView = new ProductView();
 $result = $productView->AllProducts();
+$categoryView = new CategoryView();
+
         echo "<tbody>";
         foreach ($result as $row) {
             $prod_id = $row['prod_id'];
@@ -100,35 +109,24 @@ $result = $productView->AllProducts();
             $prod_image = $row['prod_image'];
             $prod_creation = $row['prod_creation'];
             $prod_last_modification = $row['prod_last_modification'];
-
+            $category_name =  $categoryView->GetCategoryData($prod_cat)['cat_name'];
 
             echo "<tr>";
             echo "<td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='{$prod_id}'></td>";
             echo "<td>{$prod_id}</td>";
             echo "<td>{$prod_name}</td>";
-            echo "<td>{$prod_cat}</td>";
+            echo "<td>{$category_name}</td>";
             echo "<td>{$prod_price}</td>";
             echo "<td>{$prod_description}</td>";
-            echo "<td><img width='100' src='../images/{$prod_image}' alt='image'></td>";
+            echo "<td><img width='100' src='../img/{$prod_image}' alt='image'></td>";
             echo "<td>{$prod_creation}</td>";
             echo "<td>{$prod_last_modification}</td>";
-            echo "<td><a href='../product.php?product_id={$prod_id}'>View product</a></td>";
-            echo "<td><a href='products.php?source=edit_product&product_id={$prod_id}'>Edit</a></td>";
-            echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this product?') \" href='products.php?delete={$prod_id}'>Delete</a></td>";
+            echo "<td><a href='../product.php?product_id={$prod_id}'>Ver pagina del producto</a></td>";
+            echo "<td><a href='products.php?source=edit_product&product_id={$prod_id}'>Editar</a></td>";
+            echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this product?') \" href='products.php?delete={$prod_id}'>Borrar</a></td>";
             echo "</tr>";
         }
         echo "<tbody>";
     
 ?> 
 </form>
-
-
-<?php 
-if(isset($_GET['delete'])){
-    $delete_post_id = $_GET['delete'];
-    $query = "DELETE FROM posts WHERE post_id = {$delete_post_id}";
-    $delete_query = mysqli_query($connection,$query);
-    confirmQuery($delete_query);
-    header("Location: posts.php");
-}
-?> 

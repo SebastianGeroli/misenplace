@@ -22,11 +22,11 @@
                         break;
                     case 'edit_product':
                          echo "<h1 class='page-header'>Editar Producto</h1>";
-                        include "includes/edit_post.php";
+                        include "includes/edit_product.inc.php";
                         break;
                     default:
                           echo "<h1 class='page-header'>Todos los Productos</h1>";
-                        include "includes/view_all_products.php";
+                        include "includes/view_all_products.inc.php";
                         break;
                 }
                 ?>
