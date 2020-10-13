@@ -1,59 +1,43 @@
-<?php 
-if(isset($_POST['checkBoxArray'])){
-    foreach($_POST['checkBoxArray'] as $post_id){
+<?php
+if (isset($_POST['checkBoxArray'])) {
+    $productController = new ProductController();
+    $productView = new ProductView();
+    foreach ($_POST['checkBoxArray'] as $prod_id) {
         $bulk_options = $_POST['bulk_options'];
 
-        switch($bulk_options){
+        switch ($bulk_options) {
             case 'published':
-                $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_id}";
-                $update_query = mysqli_query($connection,$query);
-                confirmQuery($update_query);
                 break;
             case 'draft':
-                $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = {$post_id}";
-                $update_query = mysqli_query($connection,$query);
-                confirmQuery($update_query);
                 break;
             case 'clone':
-                $query = "SELECT * FROM posts WHERE post_id = {$post_id}";
-                $select_post_query = mysqli_query($connection,$query);
-                confirmQuery($select_post_query);
-                
-                $row = mysqli_fetch_assoc($select_post_query);
+                //Get info from DB
+                $result = $productView->GetProductByID($prod_id);
 
-                $post_title = $row['post_title'];
-                $post_category_id = $row['post_category_id'];
-                $post_date = $row['post_date'];
-                $post_author = $row['post_author'];
-                $post_status = $row['post_status'];
-                $post_image = $row['post_image'];
-                $post_tags = $row['post_tags'];
-                $post_content = $row['post_content'];
+                //Save info
+                $prod_name = $result['prod_name'];
+                $prod_cat = $result['prod_cat'];
+                $prod_price = $result['prod_price'];
+                $prod_description = $result['prod_description'];
+                $prod_image = $result['prod_image'];
+                $prod_creation = $result['prod_creation'];
+                $prod_last_modification = $result['prod_last_modification'];
 
-                $query ="INSERT INTO posts(post_title,post_category_id,post_date,post_author,post_status,post_image,post_tags,post_content) ";
-                $query .="VALUES('{$post_title}','{$post_category_id}','{$post_date}','{$post_author}','{$post_status}','{$post_image}','{$post_tags}','{$post_content}')";
-                $copy_entry = mysqli_query($connection,$query);
-                confirmQuery($copy_entry);
+                //Insert info as new product
+                $productController->AddProductToDB($prod_name,$prod_cat,$prod_price,$prod_description,$prod_image);
                 break;
             case 'delete':
-                $query = "DELETE FROM posts WHERE post_id = {$post_id}";
-                $delete_query = mysqli_query($connection,$query);
-                confirmQuery($delete_query);
+                $productController->DeleteProductFromDB($prod_id);
                 break;
             default:
                 echo "No Action Selected";
                 break;
-
         }
-
-
-
     }
-    
 }
 
 //DELETE SINGLE PRODUCT
-if(isset($_GET['delete'])){
+if (isset($_GET['delete'])) {
     $prod_ID = $_GET['delete'];
     $productController = new ProductController();
     $productController->DeleteProductFromDB($prod_ID);
@@ -64,40 +48,40 @@ if(isset($_GET['delete'])){
 
 
 <form action="" method="post">
-<table class="table table-bordered table-hover">
-            <div id="bulkOptionsContainer" class="col-xs-4">
-                <select class="form-control" name="bulk_options" id="">
-                    <option value="default" selected hidden>Select Action</option>
-                    <option value="published">Publish</option>
-                    <option value="draft">Draft</option>
-                    <option value="clone">Clone</option>
-                    <option value="delete">Delete</option>
-                </select>
-            </div>
-            <div class="col-xs-4">
-                <input type="submit" class="btn btn-success" value="Apply">
-                <a class="btn btn-primary" href="posts.php?source=add_post">Add New Post</a>
-            </div>
-            <thead>
-                <tr>
-                    <th><input id="SelectAllBoxes" type="checkbox"></th>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Categoria</th>
-                    <th>Precio</th>
-                    <th>Dscripcion</th>
-                    <th>Imagen</th>
-                    <th>Fecha Creacion</th>
-                    <th>Fecha Ultima Modificacion</th>
-                    <th>Ver Pagina del Producto</th>
-                    <th>Editar</th>
-                    <th>Borrar</th>
-                </tr>
-            </thead>
-<?php
-$productView = new ProductView();
-$result = $productView->AllProducts();
-$categoryView = new CategoryView();
+    <table class="table table-bordered table-hover">
+        <div id="bulkOptionsContainer" class="col-xs-4">
+            <select class="form-control" name="bulk_options" id="">
+                <option value="default" selected hidden>Select Action</option>
+                <option value="published">Publish</option>
+                <option value="draft">Draft</option>
+                <option value="clone">Clone</option>
+                <option value="delete">Delete</option>
+            </select>
+        </div>
+        <div class="col-xs-4">
+            <input type="submit" class="btn btn-success" value="Aplicar accion">
+            <a class="btn btn-primary" href="products.php?source=add_product">Añadir Nuevo Producto</a>
+        </div>
+        <thead>
+            <tr>
+                <th><input id="SelectAllBoxes" type="checkbox"></th>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoria</th>
+                <th>Precio</th>
+                <th>Dscripcion</th>
+                <th>Imagen</th>
+                <th>Fecha Creacion</th>
+                <th>Fecha Ultima Modificacion</th>
+                <th>Ver Pagina del Producto</th>
+                <th>Editar</th>
+                <th>Borrar</th>
+            </tr>
+        </thead>
+        <?php
+        $productView = new ProductView();
+        $result = $productView->AllProducts();
+        $categoryView = new CategoryView();
 
         echo "<tbody>";
         foreach ($result as $row) {
@@ -127,6 +111,6 @@ $categoryView = new CategoryView();
             echo "</tr>";
         }
         echo "<tbody>";
-    
-?> 
+
+        ?>
 </form>

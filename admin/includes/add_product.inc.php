@@ -13,7 +13,7 @@ if(isset($_POST['create_product'])){
 
     $productController = new ProductController();
     $LastId = $productController->AddProductToDB($prod_title,$prod_category,$prod_price,$prod_description,$prod_image);
-    echo "<p class='bg-success'>Post Added: <a href='posts.php'>View All Posts</a> OR <a href='../post.php?post_id={$LastId}'>View This Post</a> </p>";
+    echo "<p class='bg-success'>Producto Añadido: <a href='products.php'>Ver todos los productos</a> O <a href='../product.php?prod_id={$LastId}'>Ver pagina del producto</a> </p>";
 }
 
 
